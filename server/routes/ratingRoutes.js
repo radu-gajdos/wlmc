@@ -10,7 +10,7 @@ router.post("/:id", authenticateUser, async (req, res) => {
         const rating = new Rating({
             value: req.body.value,
             user: req.user.id,
-            recipe: req.params.id
+            recipe: req.params.id,
         });
         const newRating = await rating.save();
         res.status(201).json(newRating);
@@ -32,9 +32,13 @@ router.get("/:id", async (req, res) => {
 
 // Route: PUT /api/ratings/:id/:ratingId
 // Description: Update a rating
-router.put("/:id/:ratingId", authenticateUser, async (req, res) => {
+router.put("/:ratingId", authenticateUser, async (req, res) => {
     try {
-        const rating = await Rating.findByIdAndUpdate(req.params.ratingId, { value: req.body.value }, { new: true });
+        const rating = await Rating.findByIdAndUpdate(
+            req.params.ratingId,
+            { value: req.body.value },
+            { new: true }
+        );
         if (!rating) {
             return res.status(404).json({ message: "Rating not found" });
         }
@@ -46,7 +50,7 @@ router.put("/:id/:ratingId", authenticateUser, async (req, res) => {
 
 // Route: DELETE /api/ratings/:id/:ratingId
 // Description: Delete a rating
-router.delete("/:id/:ratingId", authenticateUser, async (req, res) => {
+router.delete("/:ratingId", authenticateUser, async (req, res) => {
     try {
         const rating = await Rating.findByIdAndDelete(req.params.ratingId);
         if (!rating) {

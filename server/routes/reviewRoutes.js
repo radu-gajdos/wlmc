@@ -10,7 +10,7 @@ router.post("/:recipeId", authenticateUser, async (req, res) => {
         const review = new Review({
             content: req.body.content,
             user: req.user.id,
-            recipe: req.params.recipeId
+            recipe: req.params.recipeId,
         });
         const newReview = await review.save();
         res.status(201).json(newReview);
@@ -30,11 +30,15 @@ router.get("/:recipeId", async (req, res) => {
     }
 });
 
-// Route: PUT /api/review/:recipeId/:reviewId
+// Route: PUT /api/review/:reviewId
 // Description: Update a review
-router.put("/:recipeId/:reviewId", authenticateUser, async (req, res) => {
+router.put("/:reviewId", authenticateUser, async (req, res) => {
     try {
-        const review = await Review.findByIdAndUpdate(req.params.reviewId, { content: req.body.content }, { new: true });
+        const review = await Review.findByIdAndUpdate(
+            req.params.reviewId,
+            { content: req.body.content },
+            { new: true }
+        );
         if (!review) {
             return res.status(404).json({ message: "Review not found" });
         }
@@ -44,9 +48,9 @@ router.put("/:recipeId/:reviewId", authenticateUser, async (req, res) => {
     }
 });
 
-// Route: DELETE /api/review/:recipeId/:reviewId
+// Route: DELETE /api/review/:reviewId
 // Description: Delete a review
-router.delete("/:recipeId/:reviewId", authenticateUser, async (req, res) => {
+router.delete("/:reviewId", authenticateUser, async (req, res) => {
     try {
         const review = await Review.findByIdAndDelete(req.params.reviewId);
         if (!review) {
