@@ -6,6 +6,8 @@ const userRoutes = require("./routes/userRoutes"); // Import user routes
 const recipeRoutes = require("./routes/recipeRoutes"); // Import recipe routes
 const collectionRoutes = require("./routes/collectionRoutes"); // Import collection routes
 const ratingRoutes = require("./routes/ratingRoutes"); // Import rating routes
+const reviewRoutes = require("./routes/reviewRoutes");
+
 dotenv.config(); // Load environment variables from .env file
 
 // Set up your Express app:
@@ -20,6 +22,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/collections", collectionRoutes);
 app.use("/api/ratings", ratingRoutes);
+app.use("/api/reviews", reviewRoutes);
+
 
 // Start the server:
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
