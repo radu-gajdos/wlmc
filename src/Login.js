@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -7,6 +8,8 @@ function Login() {
         password: "",
     });
     const [errorMessage, setErrorMessage] = useState(""); // State variable for error message
+
+    const [logedIn, setlogedIn] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,6 +27,8 @@ function Login() {
 
             // Handle successful login
             console.log(response.data); // Log the response from the server
+
+            setlogedIn(true);
 
             // Save JWT token to local storage
             localStorage.setItem("token", response.data.token);
@@ -91,6 +96,7 @@ function Login() {
                         >
                             Login
                         </button>
+                        {logedIn && <Navigate to="/explore" />}
                     </div>
                 </form>
             </div>

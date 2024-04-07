@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ function Register() {
     email: '',
     password: ''
   });
+  const [registered, setRegistered] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,12 +27,19 @@ function Register() {
       // Save JWT token to local storage
       localStorage.setItem('token', response.data.token);
 
-      // Redirect or perform any other action after successful registration
+      // Set registered state to true to trigger redirection
+      setRegistered(true);
+
     } catch (error) {
       // Handle registration errors
       console.error('An error occurred:', error);
     }
   };
+
+  // Redirect to login page after successful registration
+  if (registered) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">

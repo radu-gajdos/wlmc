@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Im
 import StartingPage from "./StartingPage";
 import Login from "./Login";
 import Register from "./Register";
+import Explore from "./Explore";
+import RecipeItem from "./RecipeItem";
 
 function App() {
     return (
@@ -11,6 +13,8 @@ function App() {
                 <Route exact path="/" element={<StartingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/recipes/:recipeId" element={<RecipeItem />} />
             </Routes>
         </Router>
     );
