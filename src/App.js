@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Explore from "./Explore";
 import RecipeItem from "./RecipeItem";
+import RecipeCreator from "./RecipeCreator";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/explore" element={<Explore />} />
                 <Route path="/recipes/:recipeId" element={<RecipeItem />} />
+                <Route path="/create-recipe" element={<RecipeCreator />} />
             </Routes>
         </Router>
     );

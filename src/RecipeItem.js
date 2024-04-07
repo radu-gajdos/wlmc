@@ -50,65 +50,67 @@ const RecipeItem = () => {
     }
 
     return (
-        <div className="container mx-auto p-4 flex flex-wrap mt-9 mb-9">
-            <div className="w-full md:w-1/2">
-                <h1 className="text-3xl font-semibold mb-4">{recipe.title}</h1>
-                <div className="mb-4">
-                    <h2 className="text-xl font-semibold mb-2">Description</h2>
-                    <p>{recipe.description}</p>
-                </div>
-                <div className="mb-4">
-                    <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
-                    <ul>
-                        {recipe.ingredients.map((ingredient, index) => (
-                            <li key={index}>
-                                {ingredient.quantity} {ingredient.unit}{" "}
-                                {ingredient.name}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="mb-4">
-                    <h2 className="text-xl font-semibold mb-2">Instructions</h2>
-                    <ol>
-                        {recipe.instructions.map((instruction, index) => (
-                            <li key={index}>{instruction}</li>
-                        ))}
-                    </ol>
-                </div>
-                <div className="mb-4">
-                    <p className="text-xl font-semibold">
-                        Cooking Time: {recipe.cookingTime} minutes
-                    </p>
-                </div>
-                <div className="mb-4">
-                    <p className="text-lg font-semibold">
-                        Author: {author.username}
-                    </p>
-                </div>
-            </div>
-            <div className="w-full md:w-1/2 flex justify-end">
-                <img
-                    src={recipe.imageUrl}
-                    alt={recipe.title}
-                    className="rounded-lg mb-4 object-cover"
-                    style={{ width: "400px", height: "300px" }}
-                />
-            </div>
-            {recipe.videoUrl && (
-                <div className="mb-4 w-full">
-                    <iframe
-                        className="w-full h-96 rounded-lg"
-                        src={`https://www.youtube.com/embed/${getYouTubeId(
-                            recipe.videoUrl
-                        )}`}
-                        title="Recipe Video"
-                        allowFullScreen
-                    ></iframe>
-                </div>
-            )}
-        </div>
-    );
+  <div className="container mx-auto p-4 flex flex-wrap mt-9 mb-9">
+    <div className="w-full md:w-1/2">
+      <h1 className="text-3xl font-semibold mb-4">{recipe.title}</h1>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Description</h2>
+        <p className="text-gray-800">{recipe.description}</p>
+      </div>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
+        <ul className="list-disc pl-4">
+          {recipe.ingredients.map((ingredient, index) => (
+            <li key={index} className="text-gray-800">
+              {ingredient.quantity} {ingredient.unit} {ingredient.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Instructions</h2>
+        <ol className="list-decimal pl-4">
+          {recipe.instructions.map((instruction, index) => (
+            <li key={index} className="text-gray-800">
+              {instruction}
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div className="mb-6">
+        <p className="text-xl font-semibold text-gray-800">
+          Cooking Time: {recipe.cookingTime} minutes
+        </p>
+      </div>
+      <div>
+        <p className="text-lg font-semibold text-gray-800">
+          Author: {author.username}
+        </p>
+      </div>
+    </div>
+    <div className="w-full md:w-1/2 flex justify-end">
+      <img
+        src={recipe.imageUrl}
+        alt={recipe.title}
+        className="rounded-lg mb-6 object-cover"
+        style={{ width: "400px", height: "300px" }}
+      />
+    </div>
+    {recipe.videoUrl && (
+      <div className="w-full mb-6">
+        <iframe
+          className="w-full h-96 rounded-lg"
+          src={`https://www.youtube.com/embed/${getYouTubeId(
+            recipe.videoUrl
+          )}`}
+          title="Recipe Video"
+          allowFullScreen
+        ></iframe>
+      </div>
+    )}
+  </div>
+);
+
 };
 
 export default RecipeItem;
