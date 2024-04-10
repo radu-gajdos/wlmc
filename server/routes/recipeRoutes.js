@@ -39,7 +39,7 @@ router.post("/", authenticateUser, async (req, res) => {
         cookingTime: req.body.cookingTime,
         imageUrl: req.body.imageUrl,
         videoUrl: req.body.videoUrl,
-        author: req.user.id // Assigning the author ID from the authenticated user
+        author: req.user.id, // Assigning the author ID from the authenticated user
     });
 
     try {
@@ -60,7 +60,11 @@ router.put("/:id", authenticateUser, async (req, res) => {
         }
         // Check if the authenticated user is the author of the recipe
         if (recipe.author.toString() !== req.user.id) {
-            return res.status(403).json({ message: "You are not authorized to update this recipe" });
+            return res
+                .status(403)
+                .json({
+                    message: "You are not authorized to update this recipe",
+                });
         }
         recipe.set(req.body);
         const updatedRecipe = await recipe.save();
@@ -80,14 +84,16 @@ router.delete("/:id", authenticateUser, async (req, res) => {
         }
         // Check if the authenticated user is the author of the recipe
         if (recipe.author.toString() !== req.user.id) {
-            return res.status(403).json({ message: "You are not authorized to delete this recipe" });
+            return res
+                .status(403)
+                .json({
+                    message: "You are not authorized to delete this recipe",
+                });
         }
         res.json({ message: "Recipe deleted successfully" });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
-
-
 
 module.exports = router;

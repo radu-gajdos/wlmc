@@ -113,4 +113,21 @@ router.put("/profile", authenticateUser, async (req, res) => {
     }
 });
 
+// Route: GET /api/users/:userId/username
+// Description: Get a user's username by their ID
+router.get("/:userId/username", async (req, res) => {
+    try {
+        // Find the user by ID
+        const user = await User.findById(req.params.userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Respond with the user's username
+        res.json({ username: user.username });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;
