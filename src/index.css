@@ -1,3 +1,59 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+/* index.css */
+
+/* Embed code for Tilt Neon font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+
+/* styles.css */
+
+:root {
+    --primary-color: #403D39;
+    --secondary-color: #242424  ;
+    --third-color: #CCC5B9;
+    --forth-color: #e9e8e4;
+}
+
+/* Add your custom styles below */
+
+/* Example usage */
+.App-header {
+    background-color: var(--third-color);
+    /* Applied third color */
+}
+
+.App-link {
+    color: var(--secondary-color);
+    /* Applied secondary color */
+}
+
+.bg-primary {
+    background-color: var(--primary-color);
+    /* Applied primary color */
+}
+
+.bg-secondary {
+    background-color: var(--secondary-color);
+    /* Applied secondary color */
+}
+
+.bg-third {
+    background-color: var(--third-color);
+    /* Applied third color */
+}
+
+.bg-forth {
+    background-color: var(--forth-color);
+    /* Applied forth color */
+}
+
+.text-forth {
+    color: var(--forth-color);
+    /* Applied forth color */
+}
+
+*{
+    font-family: "Tilt Neon", sans-serif;
+    font-size: large;
+}

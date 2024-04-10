@@ -14,7 +14,28 @@ const ExploreRecipes = () => {
                 const response = await axios.get(
                     "http://localhost:5000/api/recipes"
                 );
-                setRecipes(response.data);
+                const recipesWithAverageRating = await Promise.all(
+                    response.data.map(async (recipe) => {
+                        const ratingsResponse = await axios.get(
+                            `http://localhost:5000/api/ratings/${recipe._id}`
+                        );
+                        const ratings = ratingsResponse.data;
+                        const totalRating = ratings.reduce(
+                            (acc, curr) => acc + curr.value,
+                            0
+                        );
+                        const averageRating =
+                            ratings.length > 0
+                                ? totalRating / ratings.length
+                                : 0;
+                        return { ...recipe, averageRating };
+                    })
+                );
+                // Sort recipes based on average rating
+                const sortedRecipes = recipesWithAverageRating.sort(
+                    (a, b) => b.averageRating - a.averageRating
+                );
+                setRecipes(sortedRecipes);
             } catch (error) {
                 console.error("An error occurred:", error);
             }

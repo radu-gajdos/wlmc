@@ -74,7 +74,7 @@ const RecipeCreator = () => {
         <div>
             <Navigation />
             <div className="max-w-xl mx-auto p-4">
-                <h1 className="text-3xl font-semibold mb-4">
+                <h1 className="text-3xl font-semibold mb-4 text-primary">
                     Create New Recipe
                 </h1>
                 <form onSubmit={handleSubmit}>
@@ -91,7 +91,7 @@ const RecipeCreator = () => {
                             name="title"
                             value={formData.title}
                             onChange={handleChange}
-                            className="mt-1 p-2 block w-full border-gray-300 rounded-md"
+                            className="mt-1 p-2 block w-full border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth"
                             required
                         />
                     </div>
@@ -107,12 +107,10 @@ const RecipeCreator = () => {
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
-                            className="mt-1 p-2 block w-full border-gray-300 rounded-md"
+                            className="mt-1 p-2 block w-full border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth"
                             required
                         />
                     </div>
-                    {/* Add more input fields for other recipe properties (description, cookingTime, imageUrl, videoUrl, etc.) */}
-                    {/* Ingredients */}
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Ingredients
@@ -127,7 +125,7 @@ const RecipeCreator = () => {
                                         handleIngredientChange(index, e)
                                     }
                                     placeholder="Ingredient name"
-                                    className="p-2 border-gray-300 rounded-md w-1/3"
+                                    className="p-2 border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth w-1/3"
                                     required
                                 />
                                 <input
@@ -138,7 +136,7 @@ const RecipeCreator = () => {
                                         handleIngredientChange(index, e)
                                     }
                                     placeholder="Quantity"
-                                    className="p-2 border-gray-300 rounded-md w-1/4"
+                                    className="p-2 border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth w-1/4"
                                     required
                                 />
                                 <input
@@ -149,7 +147,7 @@ const RecipeCreator = () => {
                                         handleIngredientChange(index, e)
                                     }
                                     placeholder="Unit"
-                                    className="p-2 border-gray-300 rounded-md w-1/4"
+                                    className="p-2 border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth w-1/4"
                                     required
                                 />
                             </div>
@@ -162,7 +160,6 @@ const RecipeCreator = () => {
                             + Add Ingredient
                         </button>
                     </div>
-                    {/* Instructions */}
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Instructions
@@ -176,7 +173,7 @@ const RecipeCreator = () => {
                                         handleInstructionChange(index, e)
                                     }
                                     placeholder={`Step ${index + 1}`}
-                                    className="p-2 border-gray-300 rounded-md w-full"
+                                    className="p-2 border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth w-full"
                                     required
                                 />
                             </div>
@@ -189,7 +186,6 @@ const RecipeCreator = () => {
                             + Add Instruction
                         </button>
                     </div>
-                    {/* Cooking Time */}
                     <div className="mb-4">
                         <label
                             htmlFor="cookingTime"
@@ -203,11 +199,10 @@ const RecipeCreator = () => {
                             name="cookingTime"
                             value={formData.cookingTime}
                             onChange={handleChange}
-                            className="mt-1 p-2 block w-full border-gray-300 rounded-md"
+                            className="mt-1 p-2 block w-full border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth"
                             required
                         />
                     </div>
-                    {/* Image URL */}
                     <div className="mb-4">
                         <label
                             htmlFor="imageUrl"
@@ -221,10 +216,9 @@ const RecipeCreator = () => {
                             name="imageUrl"
                             value={formData.imageUrl}
                             onChange={handleChange}
-                            className="mt-1 p-2 block w-full border-gray-300 rounded-md"
+                            className="mt-1 p-2 block w-full border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth shadow-md bg-forth"
                         />
                     </div>
-                    {/* Video URL */}
                     <div className="mb-4">
                         <label
                             htmlFor="videoUrl"
@@ -238,12 +232,12 @@ const RecipeCreator = () => {
                             name="videoUrl"
                             value={formData.videoUrl}
                             onChange={handleChange}
-                            className="mt-1 p-2 block w-full border-gray-300 rounded-md"
+                            className="mt-1 p-2 block w-full border border-primary rounded-md shadow-md bg-forth shadow-md bg-forth shadow-md bg-forth"
                         />
                     </div>
                     <button
                         type="submit"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                        className="bg-secondary text-white px-4 py-2 rounded-md shadow-md"
                     >
                         Create Recipe
                     </button>

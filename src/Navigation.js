@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./index.css";
 
 const Navigation = () => {
     const [user, setUser] = useState(null);
@@ -25,37 +26,33 @@ const Navigation = () => {
     }, []);
 
     return (
-        <nav className="bg-gray-800 p-4">
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex-shrink-0 text-white mr-6">
-                        <span className="font-semibold text-xl">
-                            WhoLetMeCook
-                        </span>
-                    </div>
-                    <div className="hidden md:block">
-                        <Link
-                            to="/explore"
-                            className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium mr-4"
-                        >
-                            Explore
-                        </Link>
-                        <Link
-                            to="/user-recipes"
-                            className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium mr-4"
-                        >
-                            My Recipes
-                        </Link>
-                        <Link
-                            to="/collections"
-                            className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium mr-4"
-                        >
-                            My Collections
-                        </Link>
-                    </div>
-                    {user && (
-                        <div className="text-white">Hello, {user.username}</div>
-                    )}
+        <nav className="bg-forth py-4 shadow-md">
+            <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+                <Link
+                    to="/"
+                    className=" font-semibold text-lg"
+                >
+                    WhoLetMeCook
+                </Link>
+                <div className="flex gap-6">
+                    <Link
+                        to="/explore"
+                        className=" bg-secondary hover:bg-orange-400 px-4 py-2 rounded-md transition duration-300 text-forth"
+                    >
+                        Explore
+                    </Link>
+                    <Link
+                        to="/user-recipes"
+                        className=" bg-secondary hover:bg-orange-400 px-4 py-2 rounded-md transition duration-300 text-forth"
+                    >
+                        My Recipes
+                    </Link>
+                    <Link
+                        to="/collections"
+                        className=" bg-secondary hover:bg-orange-400 px-4 py-2 rounded-md transition duration-300 text-forth"
+                    >
+                        My Collections
+                    </Link>
                 </div>
             </div>
         </nav>

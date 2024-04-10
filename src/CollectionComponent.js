@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom"; // Import useParams hook
 import RecipeContainer from "./RecipeContainer"; // Import RecipeContainer component
 import Navigation from "./Navigation";
+import Spinner from "./Spinner";
 
 const CollectionComponent = () => {
   const { collectionId } = useParams(); // Extract collectionId from URL parameters
@@ -21,7 +22,7 @@ const CollectionComponent = () => {
   }, [collectionId]); // collectionId is used as a dependency
 
   if (!collection) {
-    return <div className="max-w-xl mx-auto p-4">Loading...</div>;
+    return <Spinner />;
   }
 
   return (

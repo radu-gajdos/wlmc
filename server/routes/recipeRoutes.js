@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Recipe = require("../models/Recipe");
+const Rating = require("../models/Rating");
 const authenticateUser = require("../middleware/authenticate");
 
 // Route: GET /api/recipes
@@ -95,5 +96,8 @@ router.delete("/:id", authenticateUser, async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+
+
 
 module.exports = router;

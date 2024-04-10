@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Spinner from "./Spinner";
 
 const RecipeAverageRating = ({ recipeId }) => {
     const [averageRating, setAverageRating] = useState(null);
@@ -71,10 +72,6 @@ const RecipeAverageRating = ({ recipeId }) => {
         };
 
         boxContent = <div style={boxStyle}>{averageRating}</div>;
-    }
-
-    if (loading) {
-        return <div>Loading...</div>;
     }
 
     if (error) {

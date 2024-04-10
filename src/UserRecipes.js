@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import RecipeContainer from "./RecipeContainer";
 import Navigation from "./Navigation";
+
+// Define colors
+const colors = {
+    primary: '#606C38',
+    secondary: '#DDA15E',
+    third: '#283618',
+};
 
 const UserRecipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -23,25 +30,25 @@ const UserRecipes = () => {
     }, []);
 
     return (
-        <div>
+        <Fragment>
             <Navigation />
-            <div className="container mx-auto p-4">
-                <h1 className="text-3xl font-semibold mb-4">My Recipes</h1>
-                <div className="mt-4">
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="text-3xl font-semibold mb-6">My Recipes</h1>
+                <div className="mb-6">
                     <Link
                         to="/create-recipe"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                        className="bg-secondary text-white px-6 py-3 rounded-md inline-block shadow-md hover:bg-opacity-80 transition duration-300"
                     >
                         Create Recipe
                     </Link>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {recipes.map((recipe) => (
                         <RecipeContainer key={recipe._id} recipeId={recipe._id} />
                     ))}
                 </div>
             </div>
-        </div>
+        </Fragment>
     );
 };
 

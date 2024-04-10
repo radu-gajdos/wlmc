@@ -31,15 +31,24 @@ const UserCollections = () => {
             <Navigation />
             <div className="max-w-xl mx-auto p-4">
                 <h1 className="text-3xl font-semibold mb-4">My Collections</h1>
+                <div className="bg-secondary rounded-md flex items-center justify-center h-12">
+                    <Link
+                        to="/create-collection"
+                        className="text-white px-6 py-3 rounded-md inline-block shadow-md hover:bg-opacity-80 transition duration-300"
+                    >
+                        Create Collection
+                    </Link>
+                </div>
+                <br />
                 {collections.map((collection) => (
                     <div
                         key={collection._id}
-                        className="mb-4 border border-gray-200 p-4 rounded-md shadow-md hover:shadow-lg transition duration-300"
+                        className="bg-forth mb-4 border border-gray-200 p-4 rounded-md shadow-md hover:shadow-lg transition duration-300"
                     >
                         {/* Make the collection name clickable */}
                         <Link
                             to={`/collection/${collection._id}`}
-                            className="text-blue-500 hover:underline"
+                            className="hover:underline"
                         >
                             <h2 className="text-xl font-semibold">
                                 {collection.name}
