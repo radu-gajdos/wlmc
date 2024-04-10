@@ -5,6 +5,7 @@ import RecipeAverageRating from "./RecipeAverageRating";
 
 const RecipeContainer = ({ recipeId }) => {
     const [recipe, setRecipe] = useState(null);
+    const [authorName, setAuthorName] = useState(null);
 
     useEffect(() => {
         const fetchRecipe = async () => {
@@ -13,6 +14,14 @@ const RecipeContainer = ({ recipeId }) => {
                     `http://localhost:5000/api/recipes/${recipeId}`
                 );
                 setRecipe(response.data);
+
+                // Fetch the author name
+                const authorId = response.data.author;
+                const authorNameResponse = await axios.get(
+                    `http://localhost:5000/api/users/${authorId}/username`
+                );
+                setAuthorName(authorNameResponse.data.username);
+                
             } catch (error) {
                 console.error("An error occurred:", error);
             }
@@ -20,7 +29,7 @@ const RecipeContainer = ({ recipeId }) => {
         fetchRecipe();
     }, [recipeId]);
 
-    if (!recipe) {
+    if (!recipe || !authorName) {
         return <div>Loading...</div>;
     }
 
@@ -36,6 +45,9 @@ const RecipeContainer = ({ recipeId }) => {
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black opacity-50"></div>
                 </div>
 
+                <div className="absolute bottom-0 right-0 m-4 px-2 py-1 bg-gray-100 rounded-lg mt-5">
+                    <p className="text-xs font-semibold">by {authorName}</p>
+                </div>
                 <div className="absolute top-0 right-0 m-4 bg-transparent text-black px-2 py-1">
                     <RecipeAverageRating recipeId={recipe._id} />
                 </div>

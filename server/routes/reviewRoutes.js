@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Review = require("../models/Review");
+const Review = require("../models/Review.js");
 const authenticateUser = require("../middleware/authenticate");
 
 // Route: POST /api/review/:recipeId

@@ -4,6 +4,7 @@ import axios from "axios";
 import Navigation from "./Navigation";
 import RecipeRating from "./RecipeRating";
 import RecipeAverageRating from "./RecipeAverageRating";
+import RecipeReviews from "./RecipeReviews";
 
 const RecipeItem = () => {
     const { recipeId } = useParams();
@@ -226,8 +227,11 @@ const RecipeItem = () => {
                     <RecipeRating recipeId={recipeId} />
                 </div>
                 <div className="mt-4">
-                    <RecipeAverageRating recipeId={recipeId}/>
+                    <RecipeAverageRating recipeId={recipeId} />
                 </div>
+            </div>
+            <div>
+                <RecipeReviews recipeId={recipeId} />
             </div>
         </div>
     );
