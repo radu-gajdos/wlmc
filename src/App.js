@@ -10,7 +10,6 @@ import CollectionCreator from "./CollectionCreator";
 import UserCollections from "./UserCollections";
 import CollectionComponent from "./CollectionComponent";
 import UserRecipes from "./UserRecipes";
-
 function App() {
     return (
         <Router>
