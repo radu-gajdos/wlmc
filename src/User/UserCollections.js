@@ -12,7 +12,7 @@ const UserCollections = () => {
 
     useEffect(() => {
         const fetchCollections = async () => {
-            // Fetch the collections of the authenticated user
+            // Fetch all collections
             try {
                 const token = localStorage.getItem("token");
                 // Fetch the collections
@@ -24,8 +24,31 @@ const UserCollections = () => {
                         },
                     }
                 );
+
+                // Fetch the authenticated user's profile
+                const userProfileResponse = await axios.get(
+                    `http://localhost:5000/api/users/profile`,
+                    {
+                        headers: {
+                            Authorization: `${localStorage.getItem("token")}`,
+                        },
+                    }
+                );
+                // Extract the user ID from the response
+                const userId = userProfileResponse.data._id;
+
+                console.log(userId);
+                console.log(response.data);
+
+                // Filter the collections to get the ones that belong to the authenticated user
+                const userCollections = response.data.filter(
+                    (collection) => collection.owner === userId
+                );
+
+                console.log(userCollections);
+
                 // Set the collections state to the fetched collections
-                setCollections(response.data);
+                setCollections(userCollections);
             } catch (error) {
                 console.error("An error occurred:", error);
             }
