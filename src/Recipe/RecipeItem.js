@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Navigation from "./Navigation";
-import RecipeRating from "./RecipeRating";
-import RecipeAverageRating from "./RecipeAverageRating";
-import RecipeReviews from "./RecipeReviews";
-
+import Navigation from "../Layout/Navigation";
+import RecipeRating from "../Rating/RecipeRating";
+import RecipeAverageRating from "../Rating/RecipeAverageRating";
+import RecipeReviews from "../Review/RecipeReviews";
+import Spinner from "../Layout/Spinner";
+/**
+ * Component for displaying a recipe's details and other functionality like adding it to a collection.
+ * @returns {JSX.Element} The RecipeItem component.
+ */
 const RecipeItem = () => {
     const { recipeId } = useParams();
     const [recipe, setRecipe] = useState(null);
@@ -16,29 +20,57 @@ const RecipeItem = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [inCollection, setInCollection] = useState(false);
 
+    // Fetch the recipe and collections when the component mounts
     useEffect(() => {
         const fetchRecipeAndCollections = async () => {
             try {
+                // Fetch the recipe
                 const recipeResponse = await axios.get(
                     `http://localhost:5000/api/recipes/${recipeId}`
                 );
+                // Set the recipe state to the fetched recipe
                 setRecipe(recipeResponse.data);
 
+                // Fetch the author name
                 const authorId = recipeResponse.data.author;
                 const authorNameResponse = await axios.get(
                     `http://localhost:5000/api/users/${authorId}/username`
                 );
+                // Set the author name state to the fetched author name
                 setAuthorName(authorNameResponse.data.username);
 
+                // Fetch all collections
                 const collectionsResponse = await axios.get(
                     `http://localhost:5000/api/collections`
                 );
-                const allCollections = collectionsResponse.data;
+                let allCollections = collectionsResponse.data;
+
+                // Fetch the authenticated user's profile
+                const userProfileResponse = await axios.get(
+                    `http://localhost:5000/api/users/profile`,
+                    {
+                        headers: {
+                            Authorization: `${localStorage.getItem("token")}`,
+                        },
+                    }
+                );
+                // Get the authenticated user's ID
+                const userId = userProfileResponse.data._id;
+
+                // Filter collections to only include those where the userId matches
+                allCollections = allCollections.filter(
+                    (collection) => collection.owner == userId
+                );
+
+                // Set the collections state to the fetched collections
                 setCollections(allCollections);
 
+                // Check if the recipe is in any of the collections
                 const foundCollection = allCollections.find((collection) =>
                     collection.recipes.includes(recipeId)
                 );
+
+                // If the recipe is in a collection, set the selected collection and inCollection states
                 if (foundCollection) {
                     setSelectedCollection(foundCollection._id);
                     setInCollection(true);
@@ -51,8 +83,10 @@ const RecipeItem = () => {
         fetchRecipeAndCollections();
     }, [recipeId]);
 
+    // Function to add a recipe to a collection
     const handleAddToCollection = async () => {
         try {
+            // Post request to add the recipe to the selected collection
             const response = await axios.post(
                 `http://localhost:5000/api/collections/${selectedCollection}/add-recipe/${recipeId}`
             );
@@ -66,13 +100,16 @@ const RecipeItem = () => {
         }
     };
 
+    // Function to remove a recipe from a collection
     const handleRemoveFromCollection = async () => {
         try {
+            // Check if a collection is selected
             if (!selectedCollection) {
                 setErrorMessage("Please select a collection");
                 return;
             }
 
+            // Delete request to remove the recipe from the selected collection
             const response = await axios.delete(
                 `http://localhost:5000/api/collections/${selectedCollection}/remove-recipe/${recipeId}`
             );
@@ -87,9 +124,10 @@ const RecipeItem = () => {
     };
 
     if (!recipe || !authorName) {
-        return <div>Loading...</div>;
+        return <Spinner />;
     }
 
+    // Function to get the YouTube video ID from a URL
     function getYouTubeId(url) {
         const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
         const match = url.match(regExp);

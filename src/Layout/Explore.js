@@ -1,19 +1,27 @@
 import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import RecipeContainer from "./RecipeContainer"; // Import the RecipeContainer component
+import RecipeContainer from "../Recipe/RecipeContainer"; // Import the RecipeContainer component
 import Navigation from "./Navigation";
 
+/**
+ * Component for displaying all the recipes in pages.
+ * @returns {JSX.Element} The ExploreRecipes component.
+ */
 const ExploreRecipes = () => {
+    // State variables for the recipes, current page, and recipes per page
     const [recipes, setRecipes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const recipesPerPage = 12;
 
+    // Fetch all recipes and their average ratings
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
+                // GET request to fetch all recipes
                 const response = await axios.get(
                     "http://localhost:5000/api/recipes"
                 );
+                // GET request to fetch all ratings for each recipe
                 const recipesWithAverageRating = await Promise.all(
                     response.data.map(async (recipe) => {
                         const ratingsResponse = await axios.get(
@@ -35,6 +43,7 @@ const ExploreRecipes = () => {
                 const sortedRecipes = recipesWithAverageRating.sort(
                     (a, b) => b.averageRating - a.averageRating
                 );
+                // Set the recipes state
                 setRecipes(sortedRecipes);
             } catch (error) {
                 console.error("An error occurred:", error);
@@ -51,6 +60,7 @@ const ExploreRecipes = () => {
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    
     return (
         <Fragment>
             <Navigation />

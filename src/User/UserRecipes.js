@@ -1,25 +1,28 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import RecipeContainer from "./RecipeContainer";
-import Navigation from "./Navigation";
+import RecipeContainer from "../Recipe/RecipeContainer";
+import Navigation from "../Layout/Navigation";
 
-// Define colors
-const colors = {
-    primary: "#606C38",
-    secondary: "#DDA15E",
-    third: "#283618",
-};
 
+/**
+ * Component for displaying the recipes of the authenticated user.
+ * @returns {JSX.Element} The UserRecipes component.
+ */
 const UserRecipes = () => {
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
+        /**
+         * Fetches the recipes of the authenticated user.
+         */
         const fetchUserRecipes = async () => {
             try {
+                // Fetch all recipes
                 const response = await axios.get(
                     "http://localhost:5000/api/recipes"
                 );
+
                 // Fetch the authenticated user's profile
                 const userProfileResponse = await axios.get(
                     `http://localhost:5000/api/users/profile`,
@@ -29,13 +32,15 @@ const UserRecipes = () => {
                         },
                     }
                 );
+                // Save the authenticated user's ID
                 const userId = userProfileResponse.data._id;
 
-                // Filter the recipes to get the ones that belong to the authenticated user
+                // Filter the recipes to get the ones that belong to the authenticated user based on the user ID
                 const userRecipes = response.data.filter(
                     (recipe) => recipe.author === userId
                 );
 
+                // Set the recipes state to the filtered recipes
                 setRecipes(userRecipes);
             } catch (error) {
                 console.error("An error occurred:", error);

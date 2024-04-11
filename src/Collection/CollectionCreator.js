@@ -1,22 +1,30 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Navigation from "./Navigation";
+import Navigation from "../Layout/Navigation";
 
+/**
+ * Component for displaying the collection creation form.
+ * @returns {JSX.Element} The CollectionCreator component.
+ */
 const CollectionCreator = () => {
+    // State variable for the form data
     const [formData, setFormData] = useState({
         name: "",
     });
 
+    // Handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(
+            // POST request for creating the collection
+            await axios.post(
                 "http://localhost:5000/api/collections",
                 formData,
                 {
@@ -25,11 +33,10 @@ const CollectionCreator = () => {
                     },
                 }
             );
-            console.log("Collection created successfully:", response.data);
+            // Redirect to the collections page
             window.location.href = "/collections";
         } catch (error) {
             console.error("Error creating collection:", error);
-            // Optionally, display an error message to the user
         }
     };
 

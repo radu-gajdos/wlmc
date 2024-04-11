@@ -3,7 +3,7 @@ const router = express.Router();
 const Review = require("../models/Review.js");
 const authenticateUser = require("../middleware/authenticate");
 
-// Route: POST /api/review/:recipeId
+// Route: POST /api/reviews/:recipeId
 // Description: Review a recipe
 router.post("/:recipeId", authenticateUser, async (req, res) => {
     try {

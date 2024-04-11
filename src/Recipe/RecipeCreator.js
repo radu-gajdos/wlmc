@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Navigation from "./Navigation";
+import Navigation from "../Layout/Navigation";
 
+/**
+ * Component for displaying the creation form of a recipe and its functionality.
+ * @returns {JSX.Element} The RecipeCreator component.
+ */
 const RecipeCreator = () => {
+    // Initialize the form data state
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -13,11 +18,13 @@ const RecipeCreator = () => {
         videoUrl: "",
     });
 
+    // Handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // Handle ingredient input changes
     const handleIngredientChange = (index, e) => {
         const { name, value } = e.target;
         const updatedIngredients = [...formData.ingredients];
@@ -25,6 +32,7 @@ const RecipeCreator = () => {
         setFormData({ ...formData, ingredients: updatedIngredients });
     };
 
+    // Handle instruction input changes
     const handleInstructionChange = (index, e) => {
         const { value } = e.target;
         const updatedInstructions = [...formData.instructions];
@@ -32,10 +40,13 @@ const RecipeCreator = () => {
         setFormData({ ...formData, instructions: updatedInstructions });
     };
 
+    // Handle form submission
     const handleSubmit = async (e) => {
+        // Prevent the default form submission behavior
         e.preventDefault();
 
         try {
+            // Send a POST request to the server with the form data
             const response = await axios.post(
                 "http://localhost:5000/api/recipes",
                 formData,
@@ -45,15 +56,14 @@ const RecipeCreator = () => {
                     },
                 }
             );
-            console.log("Recipe created successfully:", response.data);
-            // Optionally, redirect the user to another page after successful creation
+            // Redirect the user to the user recipes page
             window.location.href = "/user-recipes";
         } catch (error) {
             console.error("Error creating recipe:", error);
-            // Optionally, display an error message to the user
         }
     };
 
+    // Add a new ingredient field
     const addIngredientField = () => {
         setFormData({
             ...formData,
@@ -64,6 +74,7 @@ const RecipeCreator = () => {
         });
     };
 
+    // Add a new instruction field
     const addInstructionField = () => {
         setFormData({
             ...formData,

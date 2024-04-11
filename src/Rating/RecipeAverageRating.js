@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Spinner from "./Spinner";
+import Spinner from "../Layout/Spinner";
 
+/**
+ * Component for displaying the recipes avereage rating.
+ * @returns {JSX.Element} The RecipeAverageRating component.
+ */
 const RecipeAverageRating = ({ recipeId }) => {
+    // State variable for the average rating
     const [averageRating, setAverageRating] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    // Fetch the average rating for the recipe
     useEffect(() => {
         const fetchAverageRating = async () => {
             try {
                 // Fetch all ratings for the recipe
+                // GET request to fetch all ratings for the recipe
                 const response = await axios.get(
                     `http://localhost:5000/api/ratings/${recipeId}`
                 );
+                // Extract the ratings from the response
                 const ratings = response.data;
 
                 // Calculate the average rating
@@ -40,6 +48,7 @@ const RecipeAverageRating = ({ recipeId }) => {
 
     let boxContent = null;
     let boxStyle = null;
+
     if (averageRating !== null && averageRating > 0) {
         let boxColor = "#000";
         if (averageRating >= 4.5) {

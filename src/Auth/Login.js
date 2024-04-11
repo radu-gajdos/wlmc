@@ -2,38 +2,45 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
+/**
+ * Component for displaying the login form and handel its functionality.
+ * @returns {JSX.Element} The Login component.
+ */
 function Login() {
+    // State variables for handling form data
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
+    // State variable for error message
     const [errorMessage, setErrorMessage] = useState(""); // State variable for error message
-
+    // State variable for login status
     const [logedIn, setlogedIn] = useState(false);
 
+    // Function to handle form input changes
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // Function to handle form submission
     const handleSubmit = async (e) => {
+        // Prevent default form submission behavior
         e.preventDefault();
 
         try {
-            // Make API request to login user
+            // Send a POST request to the server with the form data
             const response = await axios.post(
                 "http://localhost:5000/api/users/login",
                 formData
             );
-
-            // Handle successful login
-            console.log(response.data); // Log the response from the server
-
+            // Set the login status to true
             setlogedIn(true);
 
             // Save JWT token to local storage
             localStorage.setItem("token", response.data.token);
 
-            // Redirect or perform any other action after successful login
+            // Redirect the user to /explore
+            window.location.href = "/explore";
         } catch (error) {
             // Handle login errors
             console.error("An error occurred:", error);

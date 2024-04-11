@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+/**
+ * Component for displaying the personal rating of a recipe and actually rating it.
+ * @returns {JSX.Element} The RecipeRating component.
+ */
 const RecipeRating = ({ recipeId }) => {
+    // State variables for the user's rating value and rating object
     const [userRatingValue, setuserRatingValue] = useState(null);
     const [userRating, setuserRating] = useState(null);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    // Fetch the user's rating for the recipe
     useEffect(() => {
         const fetchUserRating = async () => {
             try {
@@ -14,6 +20,7 @@ const RecipeRating = ({ recipeId }) => {
                 const userRatingResponse = await axios.get(
                     `http://localhost:5000/api/ratings/${recipeId}`
                 );
+                // Extract the ratings from the response
                 const ratings = userRatingResponse.data;
 
                 // Fetch the authenticated user's profile
@@ -25,12 +32,15 @@ const RecipeRating = ({ recipeId }) => {
                         },
                     }
                 );
+                // Extract the user ID from the response
                 const userId = userProfileResponse.data._id;
-                
-                // Filter the ratings to get the one that belongs to the authenticated user
-                const userRating = ratings.find(rating => rating.user === userId);
-                
 
+                // Filter the ratings to get the one that belongs to the authenticated user
+                const userRating = ratings.find(
+                    (rating) => rating.user === userId
+                );
+
+                // Set the user's rating value and rating object
                 if (userRating) {
                     setuserRatingValue(userRating.value);
                     setuserRating(userRating);
@@ -43,11 +53,13 @@ const RecipeRating = ({ recipeId }) => {
         fetchUserRating();
     }, [recipeId]);
 
+    // Handle rating change
     const handleRatingChange = async (rating) => {
         try {
             // Check if the user has already rated the recipe
             if (userRating !== null) {
                 // Update the existing rating
+                // PUT request to update the rating
                 await axios.put(
                     `http://localhost:5000/api/ratings/${userRating._id}`,
                     { value: rating },
@@ -57,10 +69,13 @@ const RecipeRating = ({ recipeId }) => {
                         },
                     }
                 );
+                // Display a success message
                 setSuccessMessage("Rating updated successfully");
-                setuserRatingValue(rating); // Update user's rating in the UI
+                // Update user's rating in the UI
+                setuserRatingValue(rating);
             } else {
                 // Submit a new rating
+                // POST request to create a new rating
                 await axios.post(
                     `http://localhost:5000/api/ratings/${recipeId}`,
                     { value: rating },
@@ -70,8 +85,10 @@ const RecipeRating = ({ recipeId }) => {
                         },
                     }
                 );
+                // Display a success message
                 setSuccessMessage("Rating submitted successfully");
-                setuserRatingValue(rating); // Update user's rating in the UI
+                // Update user's rating in the UI
+                setuserRatingValue(rating);
             }
         } catch (error) {
             setErrorMessage("Failed to submit rating");
@@ -87,7 +104,9 @@ const RecipeRating = ({ recipeId }) => {
                 <span
                     key={i}
                     className={`cursor-pointer ${
-                        i <= userRatingValue ? "text-yellow-500" : "text-gray-400"
+                        i <= userRatingValue
+                            ? "text-yellow-500"
+                            : "text-gray-400"
                     }`}
                     onClick={() => handleRatingChange(i)}
                 >

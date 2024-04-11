@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Routes, not Route
-import StartingPage from "./StartingPage";
-import Login from "./Login";
-import Register from "./Register";
-import Explore from "./Explore";
-import RecipeItem from "./RecipeItem";
-import RecipeCreator from "./RecipeCreator";
-import CollectionCreator from "./CollectionCreator";
-import UserCollections from "./UserCollections";
-import CollectionComponent from "./CollectionComponent";
-import UserRecipes from "./UserRecipes";
+import StartingPage from "./Layout/StartingPage";
+import Login from "./Auth/Login";
+import Register from "./Auth/Register";
+import Explore from "./Layout/Explore";
+import RecipeItem from "./Recipe/RecipeItem";
+import RecipeCreator from "./Recipe/RecipeCreator";
+import CollectionCreator from "./Collection/CollectionCreator";
+import UserCollections from "./User/UserCollections";
+import CollectionComponent from "./Collection/CollectionComponent";
+import UserRecipes from "./User/UserRecipes";
 function App() {
     return (
         <Router>
