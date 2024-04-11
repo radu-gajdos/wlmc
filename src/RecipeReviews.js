@@ -66,7 +66,7 @@ const RecipeReviews = ({ recipeId }) => {
 
     const handleDeleteReview = async (reviewId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/review/${reviewId}`, {
+            await axios.delete(`http://localhost:5000/api/reviews/${reviewId}`, {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
                 },

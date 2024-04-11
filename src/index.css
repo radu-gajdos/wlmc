@@ -10,9 +10,9 @@
 
 :root {
     --primary-color: #403D39;
-    --secondary-color: #242424  ;
+    --secondary-color: #6b9080  ;
     --third-color: #CCC5B9;
-    --forth-color: #e9e8e4;
+    --forth-color: #eaf4f4;
 }
 
 /* Add your custom styles below */
@@ -51,6 +51,16 @@
 .text-forth {
     color: var(--forth-color);
     /* Applied forth color */
+}
+
+.text-primary {
+    color: var(--primary-color);
+    /* Applied primary color */
+}
+
+.text-secondary {
+    color: var(--secondary-color);
+    /* Applied secondary color */
 }
 
 *{

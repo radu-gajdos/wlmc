@@ -47,6 +47,7 @@ const RecipeCreator = () => {
             );
             console.log("Recipe created successfully:", response.data);
             // Optionally, redirect the user to another page after successful creation
+            window.location.href = "/user-recipes";
         } catch (error) {
             console.error("Error creating recipe:", error);
             // Optionally, display an error message to the user
@@ -237,7 +238,7 @@ const RecipeCreator = () => {
                     </div>
                     <button
                         type="submit"
-                        className="bg-secondary text-white px-4 py-2 rounded-md shadow-md"
+                        className="bg-secondary hover:bg-orange-400 text-white px-4 py-2 rounded-md shadow-md"
                     >
                         Create Recipe
                     </button>

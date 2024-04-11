@@ -6,9 +6,9 @@ import Navigation from "./Navigation";
 
 // Define colors
 const colors = {
-    primary: '#606C38',
-    secondary: '#DDA15E',
-    third: '#283618',
+    primary: "#606C38",
+    secondary: "#DDA15E",
+    third: "#283618",
 };
 
 const UserRecipes = () => {
@@ -20,7 +20,23 @@ const UserRecipes = () => {
                 const response = await axios.get(
                     "http://localhost:5000/api/recipes"
                 );
-                setRecipes(response.data);
+                // Fetch the authenticated user's profile
+                const userProfileResponse = await axios.get(
+                    `http://localhost:5000/api/users/profile`,
+                    {
+                        headers: {
+                            Authorization: `${localStorage.getItem("token")}`,
+                        },
+                    }
+                );
+                const userId = userProfileResponse.data._id;
+
+                // Filter the recipes to get the ones that belong to the authenticated user
+                const userRecipes = response.data.filter(
+                    (recipe) => recipe.author === userId
+                );
+
+                setRecipes(userRecipes);
             } catch (error) {
                 console.error("An error occurred:", error);
             }
@@ -37,14 +53,17 @@ const UserRecipes = () => {
                 <div className="mb-6">
                     <Link
                         to="/create-recipe"
-                        className="bg-secondary text-white px-6 py-3 rounded-md inline-block shadow-md hover:bg-opacity-80 transition duration-300"
+                        className="bg-secondary hover:bg-orange-400 text-white px-6 py-3 rounded-md inline-block shadow-md hover:bg-opacity-80 transition duration-300"
                     >
                         Create Recipe
                     </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {recipes.map((recipe) => (
-                        <RecipeContainer key={recipe._id} recipeId={recipe._id} />
+                        <RecipeContainer
+                            key={recipe._id}
+                            recipeId={recipe._id}
+                        />
                     ))}
                 </div>
             </div>

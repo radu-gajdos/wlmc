@@ -43,7 +43,7 @@ function Register() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div className="bg-white shadow-md rounded-xl px-8 pt-6 pb-8 mb-4">
         <h2 className="text-2xl font-semibold mb-6">Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -90,7 +90,7 @@ function Register() {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-secondary hover:bg-orange-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Register

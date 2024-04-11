@@ -32,7 +32,10 @@ const Navigation = () => {
                     to="/"
                     className=" font-semibold text-lg"
                 >
-                    WhoLetMeCook
+                    <span className="text-2xl text-primary">Who</span>
+                            <span className="text-2xl text-secondary">Let</span>
+                            <span className="text-2xl text-primary">Me</span>
+                            <span className="text-2xl text-secondary">Cook</span>
                 </Link>
                 <div className="flex gap-6">
                     <Link
