@@ -1,7 +1,7 @@
 const fs = require('fs');
 const axios = require('axios');
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjYxMjQzNmNjNjhjZDlmMTgxMmJkYTQzIn0sImlhdCI6MTcxMjUxMDkyM30.BpUj4r3hJN53-n6hL7T6beCMTukuk8yBdaMxXUz7FFg';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjYxOGRjMThkZjI1NDA2OTlmYTUzNDUzIn0sImlhdCI6MTcxMjkwNTI0NH0.uMqrHsiom1dRo7g4AJLcSwdVUcIFQlr1bURmofq2rIc';
 
 // Read recipes from the JSON file
 fs.readFile('recipes.json', 'utf8', async (err, data) => {
